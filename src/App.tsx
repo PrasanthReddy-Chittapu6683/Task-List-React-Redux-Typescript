@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { FC } from 'react';
 import './App.css';
-
-function App() {
+import { useSelector } from 'react-redux'
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import Notification from './components/Notification'
+import { RootState } from './store/store';
+import DeleteListModel from './components/DeleteListModal';
+import EditListModal from './components/EditListModal';
+const App: FC = () => {
+  const notificationMsg = useSelector((state: RootState) => state.notificationReducer.message)
+  const listIdToDelete = useSelector((state: RootState) => state.listReducer.listIdToDelete)
+  const listIdToEdit = useSelector((state: RootState) => state.listReducer.listToEdit)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title="Task List App" subtitle="Create some list and add some tasks for each list" />
+      <Notification msg={notificationMsg} />
+      {/* <CreateNewList /> */}
+      <div className="container px-5">
+        <div className="column">
+          <Sidebar />
+        </div>
+      </div>
+     
+      {listIdToDelete && <DeleteListModel listId={listIdToDelete} />}
+      {listIdToEdit && <EditListModal list={listIdToEdit} />}
     </div>
   );
 }
