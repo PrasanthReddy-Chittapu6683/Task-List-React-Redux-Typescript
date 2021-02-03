@@ -7,6 +7,9 @@ import Notification from './components/Notification'
 import { RootState } from './store/store';
 import DeleteListModel from './components/DeleteListModal';
 import EditListModal from './components/EditListModal';
+
+
+//rafce : ArrowFunctionalComponent
 const App: FC = () => {
   const notificationMsg = useSelector((state: RootState) => state.notificationReducer.message)
   const listIdToDelete = useSelector((state: RootState) => state.listReducer.listIdToDelete)
